@@ -10,9 +10,9 @@ Centralny.Węzeł.Ewidencji.Luk_bezpieczenstwa
 
 | Imię i nazwisko | Rola |
 |---|---|
-| Paweł Draczyński | ? |
-| Mateusz Flis | ? |
-| Kacper Baszak | ? |
+| Paweł Draczyński | Vibe Coding Fixer |
+| Mateusz Flis | Artificial Indian |
+| Kacper Baszak | VibeCoder |
 
 ---
 
@@ -27,6 +27,6 @@ Centralny.Węzeł.Ewidencji.Luk_bezpieczenstwa
 |---|---|
 | Backend | Laravel 11 (PHP 8.2) |
 | Frontend | React 18 + Tailwind CSS |
-| Baza danych | ? |
+| Baza danych | MySQL 8 |
 | Konteneryzacja | Docker + Docker Compose |
 | Autentykacja | Laravel Sanctum |
