@@ -1,0 +1,142 @@
+# =============================================================================
+# LARAVEL - THREAT INTELLIGENCE & VULNERABILITY TRACKER
+# .gitignore
+# =============================================================================
+
+# =============================================================================
+# KRYTYCZNE - SEKRETY I DANE UWIERZYTELNIAJĄCE
+# =============================================================================
+.env
+.env.*
+!.env.example
+!.env.encrypted
+
+# Laravel Passport (OAuth2 keys)
+storage/oauth-private.key
+storage/oauth-public.key
+
+# Klucze SSL/TLS (jeśli lokalne)
+*.pem
+*.key
+*.crt
+*.p12
+
+# =============================================================================
+# LARAVEL - CACHE I BOOTSTRAP
+# =============================================================================
+bootstrap/cache/*.php
+!bootstrap/cache/.gitkeep
+
+# =============================================================================
+# LARAVEL - STORAGE
+# =============================================================================
+
+# Logi (mogą zawierać stack traces, SQL queries, dane użytkowników)
+storage/logs/*
+!storage/logs/.gitkeep
+
+# Sesje użytkowników
+storage/framework/sessions/*
+!storage/framework/sessions/.gitkeep
+
+# Cache frameworka
+storage/framework/cache/*
+!storage/framework/cache/.gitkeep
+!storage/framework/cache/data/.gitkeep
+
+# Skompilowane widoki Blade
+storage/framework/views/*
+!storage/framework/views/.gitkeep
+
+# Pliki testowe
+storage/framework/testing/*
+!storage/framework/testing/.gitkeep
+
+# Upload użytkowników (dane, nie kod)
+storage/app/public/*
+!storage/app/public/.gitkeep
+
+# =============================================================================
+# ZALEŻNOŚCI (zarządzane przez package managery)
+# =============================================================================
+vendor/
+node_modules/
+
+# =============================================================================
+# FRONTEND / VITE
+# =============================================================================
+public/hot
+public/build/
+npm-debug.log
+yarn-error.log
+yarn.lock
+
+# =============================================================================
+# BAZY DANYCH
+# =============================================================================
+
+# SQLite (lokalna baza deweloperska)
+*.sqlite
+*.sqlite-journal
+*.sqlite-wal
+*.sqlite-shm
+
+# Dump bazy (mogą zawierać dane produkcyjne)
+*.sql
+*.dump
+!database/schema/*.sql
+
+# =============================================================================
+# TESTY
+# =============================================================================
+.phpunit.result.cache
+.phpunit.cache/
+coverage/
+.coverage
+
+# =============================================================================
+# IDE I EDYTORY
+# =============================================================================
+.idea/
+.vscode/
+*.swp
+*.swo
+*.suo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE helpers (generowane automatycznie)
+_ide_helper.php
+_ide_helper_models.php
+.phpstorm.meta.php
+
+# =============================================================================
+# DOCKER (lokalne overrides)
+# =============================================================================
+docker-compose.override.yml
+docker-compose.local.yml
+
+# =============================================================================
+# PHP / COMPOSER
+# =============================================================================
+composer.phar
+auth.json
+.php-cs-fixer.cache
+.php_cs.cache
+
+# =============================================================================
+# INNE
+# =============================================================================
+Homestead.yaml
+Homestead.json
+.vagrant/
+
+# Laravel Telescope (opcjonalnie - jeśli nie chcesz publicznych danych debug)
+# storage/telescope/
+
+# Pliki tymczasowe
+*.tmp
+*.temp
+*.bak
+*.backup
