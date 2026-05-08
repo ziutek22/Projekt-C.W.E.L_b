@@ -1,6 +1,8 @@
+import VulnerabilityController from './VulnerabilityController'
 import Settings from './Settings'
 const Controllers = {
-    Settings: Object.assign(Settings, Settings),
+    VulnerabilityController: Object.assign(VulnerabilityController, VulnerabilityController),
+Settings: Object.assign(Settings, Settings),
 }
 
 export default Controllers
