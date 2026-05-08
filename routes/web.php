@@ -3,6 +3,8 @@
 use App\Http\Controllers\VulnerabilityController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
+use App\Http\Controllers\ThreatController;
+use App\Http\Controllers\AssetController;
 
 Route::inertia('/', 'welcome', [
     'canRegister' => Features::enabled(Features::registration()),
@@ -18,5 +20,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 //})
 
 Route::resource('vulnerabilities', VulnerabilityController::class);
+Route::resource('threats', ThreatController::class);
+Route::resource('assets', AssetController::class);
+
 
 require __DIR__.'/settings.php';
