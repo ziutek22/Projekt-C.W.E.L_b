@@ -27,4 +27,14 @@ Route::get('/dashboard', DashboardController::class)
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
+use App\Http\Controllers\CommentController;
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
+    Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
+});
+
+
+
+
 require __DIR__.'/settings.php';

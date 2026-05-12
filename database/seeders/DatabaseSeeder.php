@@ -2,22 +2,34 @@
 
 namespace Database\Seeders;
 
+use App\Models\Asset;
+use App\Models\Threat;
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Vulnerability;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // 1. Najpierw userzy
+        $users = User::factory(5)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        // 2. Encje
+        $vulnerabilities = Vulnerability::factory(20)->create();
+        $threats         = Threat::factory(10)->create();
+        $assets          = Asset::factory(15)->create();
+
+        // 3. Relacje pivot
+        $vulnerabilities->each(function ($vuln) use ($threats, $assets) {
+            $vuln->threats()->attach(
+                $threats->random(rand(1, 3))->pluck('id')
+            );
+            $vuln->assets()->attach(
+                $assets->random(rand(1, 4))->pluck('id')->mapWithKeys(fn($id) => [
+                    $id => ['detected_at' => now(), 'remediation_status' => 'open']
+                ])
+            );
+        });
     }
 }
