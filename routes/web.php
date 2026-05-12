@@ -33,7 +33,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
     Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
 });
-
+Route::post('/locale/{locale}', function (string $locale) {
+    if (!in_array($locale, ['en', 'pl'])) {
+        abort(400);
+    }
+    session(['locale' => $locale]);
+    return back();
+})->middleware('web')->name('locale.switch');
 
 
 
