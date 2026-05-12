@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use App\Http\Controllers\ThreatController;
 use App\Http\Controllers\AssetController;
+use App\Http\Controllers\DashboardController;
 
 Route::inertia('/', 'welcome', [
     'canRegister' => Features::enabled(Features::registration()),
@@ -22,6 +23,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::resource('vulnerabilities', VulnerabilityController::class);
 Route::resource('threats', ThreatController::class);
 Route::resource('assets', AssetController::class);
-
+Route::get('/dashboard', DashboardController::class)
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
 require __DIR__.'/settings.php';
