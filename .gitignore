@@ -140,3 +140,5 @@ Homestead.json
 *.temp
 *.bak
 *.backup
+
+.env.docker

@@ -1,4 +1,4 @@
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, router } from '@inertiajs/react';
 
 interface Vulnerability {
     id: number;
@@ -21,6 +21,11 @@ const severityColor: Record<string, string> = {
     low: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
 };
 
+function deleteVulnerability(id: number) {
+    if (!confirm('Are you sure?')) return;
+    router.delete(`/vulnerabilities/${id}`);
+}
+
 export default function Index({ vulnerabilities }: Props) {
     return (
         <>
@@ -42,6 +47,7 @@ export default function Index({ vulnerabilities }: Props) {
                             <th className="p-3 text-left">Title</th>
                             <th className="p-3 text-left">Severity</th>
                             <th className="p-3 text-left">Status</th>
+                            <th className="p-3 text-left">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -70,6 +76,24 @@ export default function Index({ vulnerabilities }: Props) {
                                 </td>
                                 <td className="p-3 capitalize">
                                     {v.status.replace('_', ' ')}
+                                </td>
+                                <td className="p-3">
+                                    <div className="flex gap-2">
+                                        <Link
+                                            href={`/vulnerabilities/${v.id}/edit`}
+                                            className="text-xs text-blue-500 hover:underline"
+                                        >
+                                            Edit
+                                        </Link>
+                                        <button
+                                            onClick={() =>
+                                                deleteVulnerability(v.id)
+                                            }
+                                            className="text-xs text-red-500 hover:underline"
+                                        >
+                                            Delete
+                                        </button>
+                                    </div>
                                 </td>
                             </tr>
                         ))}

@@ -1,7 +1,62 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../wayfinder'
 /**
+* @see \App\Http\Controllers\VulnerabilityController::fetchNvd
+ * @see app/Http/Controllers/VulnerabilityController.php:114
+ * @route '/vulnerabilities/fetch-nvd'
+ */
+export const fetchNvd = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: fetchNvd.url(options),
+    method: 'post',
+})
+
+fetchNvd.definition = {
+    methods: ["post"],
+    url: '/vulnerabilities/fetch-nvd',
+} satisfies RouteDefinition<["post"]>
+
+/**
+* @see \App\Http\Controllers\VulnerabilityController::fetchNvd
+ * @see app/Http/Controllers/VulnerabilityController.php:114
+ * @route '/vulnerabilities/fetch-nvd'
+ */
+fetchNvd.url = (options?: RouteQueryOptions) => {
+    return fetchNvd.definition.url + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\VulnerabilityController::fetchNvd
+ * @see app/Http/Controllers/VulnerabilityController.php:114
+ * @route '/vulnerabilities/fetch-nvd'
+ */
+fetchNvd.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: fetchNvd.url(options),
+    method: 'post',
+})
+
+    /**
+* @see \App\Http\Controllers\VulnerabilityController::fetchNvd
+ * @see app/Http/Controllers/VulnerabilityController.php:114
+ * @route '/vulnerabilities/fetch-nvd'
+ */
+    const fetchNvdForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: fetchNvd.url(options),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\VulnerabilityController::fetchNvd
+ * @see app/Http/Controllers/VulnerabilityController.php:114
+ * @route '/vulnerabilities/fetch-nvd'
+ */
+        fetchNvdForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: fetchNvd.url(options),
+            method: 'post',
+        })
+    
+    fetchNvd.form = fetchNvdForm
+/**
 * @see \App\Http\Controllers\VulnerabilityController::index
- * @see app/Http/Controllers/VulnerabilityController.php:17
+ * @see app/Http/Controllers/VulnerabilityController.php:20
  * @route '/vulnerabilities'
  */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +71,7 @@ index.definition = {
 
 /**
 * @see \App\Http\Controllers\VulnerabilityController::index
- * @see app/Http/Controllers/VulnerabilityController.php:17
+ * @see app/Http/Controllers/VulnerabilityController.php:20
  * @route '/vulnerabilities'
  */
 index.url = (options?: RouteQueryOptions) => {
@@ -25,7 +80,7 @@ index.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\VulnerabilityController::index
- * @see app/Http/Controllers/VulnerabilityController.php:17
+ * @see app/Http/Controllers/VulnerabilityController.php:20
  * @route '/vulnerabilities'
  */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -34,7 +89,7 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 /**
 * @see \App\Http\Controllers\VulnerabilityController::index
- * @see app/Http/Controllers/VulnerabilityController.php:17
+ * @see app/Http/Controllers/VulnerabilityController.php:20
  * @route '/vulnerabilities'
  */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -44,7 +99,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
     /**
 * @see \App\Http\Controllers\VulnerabilityController::index
- * @see app/Http/Controllers/VulnerabilityController.php:17
+ * @see app/Http/Controllers/VulnerabilityController.php:20
  * @route '/vulnerabilities'
  */
     const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -54,7 +109,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
             /**
 * @see \App\Http\Controllers\VulnerabilityController::index
- * @see app/Http/Controllers/VulnerabilityController.php:17
+ * @see app/Http/Controllers/VulnerabilityController.php:20
  * @route '/vulnerabilities'
  */
         indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -63,7 +118,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
         })
             /**
 * @see \App\Http\Controllers\VulnerabilityController::index
- * @see app/Http/Controllers/VulnerabilityController.php:17
+ * @see app/Http/Controllers/VulnerabilityController.php:20
  * @route '/vulnerabilities'
  */
         indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -79,7 +134,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     index.form = indexForm
 /**
 * @see \App\Http\Controllers\VulnerabilityController::create
- * @see app/Http/Controllers/VulnerabilityController.php:28
+ * @see app/Http/Controllers/VulnerabilityController.php:31
  * @route '/vulnerabilities/create'
  */
 export const create = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -94,7 +149,7 @@ create.definition = {
 
 /**
 * @see \App\Http\Controllers\VulnerabilityController::create
- * @see app/Http/Controllers/VulnerabilityController.php:28
+ * @see app/Http/Controllers/VulnerabilityController.php:31
  * @route '/vulnerabilities/create'
  */
 create.url = (options?: RouteQueryOptions) => {
@@ -103,7 +158,7 @@ create.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\VulnerabilityController::create
- * @see app/Http/Controllers/VulnerabilityController.php:28
+ * @see app/Http/Controllers/VulnerabilityController.php:31
  * @route '/vulnerabilities/create'
  */
 create.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -112,7 +167,7 @@ create.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 /**
 * @see \App\Http\Controllers\VulnerabilityController::create
- * @see app/Http/Controllers/VulnerabilityController.php:28
+ * @see app/Http/Controllers/VulnerabilityController.php:31
  * @route '/vulnerabilities/create'
  */
 create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -122,7 +177,7 @@ create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
     /**
 * @see \App\Http\Controllers\VulnerabilityController::create
- * @see app/Http/Controllers/VulnerabilityController.php:28
+ * @see app/Http/Controllers/VulnerabilityController.php:31
  * @route '/vulnerabilities/create'
  */
     const createForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -132,7 +187,7 @@ create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
             /**
 * @see \App\Http\Controllers\VulnerabilityController::create
- * @see app/Http/Controllers/VulnerabilityController.php:28
+ * @see app/Http/Controllers/VulnerabilityController.php:31
  * @route '/vulnerabilities/create'
  */
         createForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -141,7 +196,7 @@ create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
         })
             /**
 * @see \App\Http\Controllers\VulnerabilityController::create
- * @see app/Http/Controllers/VulnerabilityController.php:28
+ * @see app/Http/Controllers/VulnerabilityController.php:31
  * @route '/vulnerabilities/create'
  */
         createForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -157,7 +212,7 @@ create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     create.form = createForm
 /**
 * @see \App\Http\Controllers\VulnerabilityController::store
- * @see app/Http/Controllers/VulnerabilityController.php:39
+ * @see app/Http/Controllers/VulnerabilityController.php:42
  * @route '/vulnerabilities'
  */
 export const store = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -172,7 +227,7 @@ store.definition = {
 
 /**
 * @see \App\Http\Controllers\VulnerabilityController::store
- * @see app/Http/Controllers/VulnerabilityController.php:39
+ * @see app/Http/Controllers/VulnerabilityController.php:42
  * @route '/vulnerabilities'
  */
 store.url = (options?: RouteQueryOptions) => {
@@ -181,7 +236,7 @@ store.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\VulnerabilityController::store
- * @see app/Http/Controllers/VulnerabilityController.php:39
+ * @see app/Http/Controllers/VulnerabilityController.php:42
  * @route '/vulnerabilities'
  */
 store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -191,7 +246,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
     /**
 * @see \App\Http\Controllers\VulnerabilityController::store
- * @see app/Http/Controllers/VulnerabilityController.php:39
+ * @see app/Http/Controllers/VulnerabilityController.php:42
  * @route '/vulnerabilities'
  */
     const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -201,7 +256,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
             /**
 * @see \App\Http\Controllers\VulnerabilityController::store
- * @see app/Http/Controllers/VulnerabilityController.php:39
+ * @see app/Http/Controllers/VulnerabilityController.php:42
  * @route '/vulnerabilities'
  */
         storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -212,7 +267,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     store.form = storeForm
 /**
 * @see \App\Http\Controllers\VulnerabilityController::show
- * @see app/Http/Controllers/VulnerabilityController.php:48
+ * @see app/Http/Controllers/VulnerabilityController.php:62
  * @route '/vulnerabilities/{vulnerability}'
  */
 export const show = (args: { vulnerability: number | { id: number } } | [vulnerability: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -227,7 +282,7 @@ show.definition = {
 
 /**
 * @see \App\Http\Controllers\VulnerabilityController::show
- * @see app/Http/Controllers/VulnerabilityController.php:48
+ * @see app/Http/Controllers/VulnerabilityController.php:62
  * @route '/vulnerabilities/{vulnerability}'
  */
 show.url = (args: { vulnerability: number | { id: number } } | [vulnerability: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -260,7 +315,7 @@ show.url = (args: { vulnerability: number | { id: number } } | [vulnerability: n
 
 /**
 * @see \App\Http\Controllers\VulnerabilityController::show
- * @see app/Http/Controllers/VulnerabilityController.php:48
+ * @see app/Http/Controllers/VulnerabilityController.php:62
  * @route '/vulnerabilities/{vulnerability}'
  */
 show.get = (args: { vulnerability: number | { id: number } } | [vulnerability: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -269,7 +324,7 @@ show.get = (args: { vulnerability: number | { id: number } } | [vulnerability: n
 })
 /**
 * @see \App\Http\Controllers\VulnerabilityController::show
- * @see app/Http/Controllers/VulnerabilityController.php:48
+ * @see app/Http/Controllers/VulnerabilityController.php:62
  * @route '/vulnerabilities/{vulnerability}'
  */
 show.head = (args: { vulnerability: number | { id: number } } | [vulnerability: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -279,7 +334,7 @@ show.head = (args: { vulnerability: number | { id: number } } | [vulnerability: 
 
     /**
 * @see \App\Http\Controllers\VulnerabilityController::show
- * @see app/Http/Controllers/VulnerabilityController.php:48
+ * @see app/Http/Controllers/VulnerabilityController.php:62
  * @route '/vulnerabilities/{vulnerability}'
  */
     const showForm = (args: { vulnerability: number | { id: number } } | [vulnerability: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -289,7 +344,7 @@ show.head = (args: { vulnerability: number | { id: number } } | [vulnerability: 
 
             /**
 * @see \App\Http\Controllers\VulnerabilityController::show
- * @see app/Http/Controllers/VulnerabilityController.php:48
+ * @see app/Http/Controllers/VulnerabilityController.php:62
  * @route '/vulnerabilities/{vulnerability}'
  */
         showForm.get = (args: { vulnerability: number | { id: number } } | [vulnerability: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -298,7 +353,7 @@ show.head = (args: { vulnerability: number | { id: number } } | [vulnerability: 
         })
             /**
 * @see \App\Http\Controllers\VulnerabilityController::show
- * @see app/Http/Controllers/VulnerabilityController.php:48
+ * @see app/Http/Controllers/VulnerabilityController.php:62
  * @route '/vulnerabilities/{vulnerability}'
  */
         showForm.head = (args: { vulnerability: number | { id: number } } | [vulnerability: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -314,7 +369,7 @@ show.head = (args: { vulnerability: number | { id: number } } | [vulnerability: 
     show.form = showForm
 /**
 * @see \App\Http\Controllers\VulnerabilityController::edit
- * @see app/Http/Controllers/VulnerabilityController.php:60
+ * @see app/Http/Controllers/VulnerabilityController.php:74
  * @route '/vulnerabilities/{vulnerability}/edit'
  */
 export const edit = (args: { vulnerability: number | { id: number } } | [vulnerability: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -329,7 +384,7 @@ edit.definition = {
 
 /**
 * @see \App\Http\Controllers\VulnerabilityController::edit
- * @see app/Http/Controllers/VulnerabilityController.php:60
+ * @see app/Http/Controllers/VulnerabilityController.php:74
  * @route '/vulnerabilities/{vulnerability}/edit'
  */
 edit.url = (args: { vulnerability: number | { id: number } } | [vulnerability: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -362,7 +417,7 @@ edit.url = (args: { vulnerability: number | { id: number } } | [vulnerability: n
 
 /**
 * @see \App\Http\Controllers\VulnerabilityController::edit
- * @see app/Http/Controllers/VulnerabilityController.php:60
+ * @see app/Http/Controllers/VulnerabilityController.php:74
  * @route '/vulnerabilities/{vulnerability}/edit'
  */
 edit.get = (args: { vulnerability: number | { id: number } } | [vulnerability: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -371,7 +426,7 @@ edit.get = (args: { vulnerability: number | { id: number } } | [vulnerability: n
 })
 /**
 * @see \App\Http\Controllers\VulnerabilityController::edit
- * @see app/Http/Controllers/VulnerabilityController.php:60
+ * @see app/Http/Controllers/VulnerabilityController.php:74
  * @route '/vulnerabilities/{vulnerability}/edit'
  */
 edit.head = (args: { vulnerability: number | { id: number } } | [vulnerability: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -381,7 +436,7 @@ edit.head = (args: { vulnerability: number | { id: number } } | [vulnerability: 
 
     /**
 * @see \App\Http\Controllers\VulnerabilityController::edit
- * @see app/Http/Controllers/VulnerabilityController.php:60
+ * @see app/Http/Controllers/VulnerabilityController.php:74
  * @route '/vulnerabilities/{vulnerability}/edit'
  */
     const editForm = (args: { vulnerability: number | { id: number } } | [vulnerability: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -391,7 +446,7 @@ edit.head = (args: { vulnerability: number | { id: number } } | [vulnerability: 
 
             /**
 * @see \App\Http\Controllers\VulnerabilityController::edit
- * @see app/Http/Controllers/VulnerabilityController.php:60
+ * @see app/Http/Controllers/VulnerabilityController.php:74
  * @route '/vulnerabilities/{vulnerability}/edit'
  */
         editForm.get = (args: { vulnerability: number | { id: number } } | [vulnerability: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -400,7 +455,7 @@ edit.head = (args: { vulnerability: number | { id: number } } | [vulnerability: 
         })
             /**
 * @see \App\Http\Controllers\VulnerabilityController::edit
- * @see app/Http/Controllers/VulnerabilityController.php:60
+ * @see app/Http/Controllers/VulnerabilityController.php:74
  * @route '/vulnerabilities/{vulnerability}/edit'
  */
         editForm.head = (args: { vulnerability: number | { id: number } } | [vulnerability: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -416,7 +471,7 @@ edit.head = (args: { vulnerability: number | { id: number } } | [vulnerability: 
     edit.form = editForm
 /**
 * @see \App\Http\Controllers\VulnerabilityController::update
- * @see app/Http/Controllers/VulnerabilityController.php:72
+ * @see app/Http/Controllers/VulnerabilityController.php:86
  * @route '/vulnerabilities/{vulnerability}'
  */
 export const update = (args: { vulnerability: number | { id: number } } | [vulnerability: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -431,7 +486,7 @@ update.definition = {
 
 /**
 * @see \App\Http\Controllers\VulnerabilityController::update
- * @see app/Http/Controllers/VulnerabilityController.php:72
+ * @see app/Http/Controllers/VulnerabilityController.php:86
  * @route '/vulnerabilities/{vulnerability}'
  */
 update.url = (args: { vulnerability: number | { id: number } } | [vulnerability: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -464,7 +519,7 @@ update.url = (args: { vulnerability: number | { id: number } } | [vulnerability:
 
 /**
 * @see \App\Http\Controllers\VulnerabilityController::update
- * @see app/Http/Controllers/VulnerabilityController.php:72
+ * @see app/Http/Controllers/VulnerabilityController.php:86
  * @route '/vulnerabilities/{vulnerability}'
  */
 update.put = (args: { vulnerability: number | { id: number } } | [vulnerability: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -473,7 +528,7 @@ update.put = (args: { vulnerability: number | { id: number } } | [vulnerability:
 })
 /**
 * @see \App\Http\Controllers\VulnerabilityController::update
- * @see app/Http/Controllers/VulnerabilityController.php:72
+ * @see app/Http/Controllers/VulnerabilityController.php:86
  * @route '/vulnerabilities/{vulnerability}'
  */
 update.patch = (args: { vulnerability: number | { id: number } } | [vulnerability: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
@@ -483,7 +538,7 @@ update.patch = (args: { vulnerability: number | { id: number } } | [vulnerabilit
 
     /**
 * @see \App\Http\Controllers\VulnerabilityController::update
- * @see app/Http/Controllers/VulnerabilityController.php:72
+ * @see app/Http/Controllers/VulnerabilityController.php:86
  * @route '/vulnerabilities/{vulnerability}'
  */
     const updateForm = (args: { vulnerability: number | { id: number } } | [vulnerability: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -498,7 +553,7 @@ update.patch = (args: { vulnerability: number | { id: number } } | [vulnerabilit
 
             /**
 * @see \App\Http\Controllers\VulnerabilityController::update
- * @see app/Http/Controllers/VulnerabilityController.php:72
+ * @see app/Http/Controllers/VulnerabilityController.php:86
  * @route '/vulnerabilities/{vulnerability}'
  */
         updateForm.put = (args: { vulnerability: number | { id: number } } | [vulnerability: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -512,7 +567,7 @@ update.patch = (args: { vulnerability: number | { id: number } } | [vulnerabilit
         })
             /**
 * @see \App\Http\Controllers\VulnerabilityController::update
- * @see app/Http/Controllers/VulnerabilityController.php:72
+ * @see app/Http/Controllers/VulnerabilityController.php:86
  * @route '/vulnerabilities/{vulnerability}'
  */
         updateForm.patch = (args: { vulnerability: number | { id: number } } | [vulnerability: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -528,7 +583,7 @@ update.patch = (args: { vulnerability: number | { id: number } } | [vulnerabilit
     update.form = updateForm
 /**
 * @see \App\Http\Controllers\VulnerabilityController::destroy
- * @see app/Http/Controllers/VulnerabilityController.php:81
+ * @see app/Http/Controllers/VulnerabilityController.php:108
  * @route '/vulnerabilities/{vulnerability}'
  */
 export const destroy = (args: { vulnerability: number | { id: number } } | [vulnerability: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -543,7 +598,7 @@ destroy.definition = {
 
 /**
 * @see \App\Http\Controllers\VulnerabilityController::destroy
- * @see app/Http/Controllers/VulnerabilityController.php:81
+ * @see app/Http/Controllers/VulnerabilityController.php:108
  * @route '/vulnerabilities/{vulnerability}'
  */
 destroy.url = (args: { vulnerability: number | { id: number } } | [vulnerability: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -576,7 +631,7 @@ destroy.url = (args: { vulnerability: number | { id: number } } | [vulnerability
 
 /**
 * @see \App\Http\Controllers\VulnerabilityController::destroy
- * @see app/Http/Controllers/VulnerabilityController.php:81
+ * @see app/Http/Controllers/VulnerabilityController.php:108
  * @route '/vulnerabilities/{vulnerability}'
  */
 destroy.delete = (args: { vulnerability: number | { id: number } } | [vulnerability: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -586,7 +641,7 @@ destroy.delete = (args: { vulnerability: number | { id: number } } | [vulnerabil
 
     /**
 * @see \App\Http\Controllers\VulnerabilityController::destroy
- * @see app/Http/Controllers/VulnerabilityController.php:81
+ * @see app/Http/Controllers/VulnerabilityController.php:108
  * @route '/vulnerabilities/{vulnerability}'
  */
     const destroyForm = (args: { vulnerability: number | { id: number } } | [vulnerability: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -601,7 +656,7 @@ destroy.delete = (args: { vulnerability: number | { id: number } } | [vulnerabil
 
             /**
 * @see \App\Http\Controllers\VulnerabilityController::destroy
- * @see app/Http/Controllers/VulnerabilityController.php:81
+ * @see app/Http/Controllers/VulnerabilityController.php:108
  * @route '/vulnerabilities/{vulnerability}'
  */
         destroyForm.delete = (args: { vulnerability: number | { id: number } } | [vulnerability: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -616,7 +671,8 @@ destroy.delete = (args: { vulnerability: number | { id: number } } | [vulnerabil
     
     destroy.form = destroyForm
 const vulnerabilities = {
-    index: Object.assign(index, index),
+    fetchNvd: Object.assign(fetchNvd, fetchNvd),
+index: Object.assign(index, index),
 create: Object.assign(create, create),
 store: Object.assign(store, store),
 show: Object.assign(show, show),
