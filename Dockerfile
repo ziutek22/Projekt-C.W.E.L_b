@@ -33,6 +33,7 @@ RUN composer install --no-dev --optimize-autoloader
 # Zależności JS i build frontendu
 RUN npm install
 RUN php artisan wayfinder:generate || true
+RUN ls resources/js/actions/App/Http/Controllers/Settings/
 RUN npm run build
 
 # Uprawnienia storage
