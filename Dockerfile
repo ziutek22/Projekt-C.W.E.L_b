@@ -33,7 +33,8 @@ RUN composer install --no-dev --optimize-autoloader
 # Zależności JS i build frontendu
 RUN npm install
 RUN php artisan wayfinder:generate || true
-RUN ls resources/js/actions/App/Http/Controllers/Settings/
+RUN echo "export default {};" > resources/js/actions/App/Http/Controllers/Settings/SecurityController.ts
+RUN mkdir -p resources/js/routes/security && echo "export const edit = () => '/settings/security';" > resources/js/routes/security/index.ts
 RUN npm run build
 
 # Uprawnienia storage
