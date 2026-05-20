@@ -49,12 +49,26 @@ class DashboardController extends Controller
             ->take(5)
             ->get(['id', 'name', 'type', 'severity', 'status', 'created_at']);
 
+        $unassignedVulnerabilitiesCount = Vulnerability::query()
+            ->whereNull('assigned_to')
+            ->count();
+
+        $criticalAlerts = Vulnerability::query()
+            ->where('severity', 'critical')
+            ->where('status', 'open')
+            ->orderByDesc('cvss_score')
+            ->latest()
+            ->take(3)
+            ->get(['id', 'title', 'cve_id', 'cvss_score', 'created_at']);
+
         return Inertia::render('dashboard', [
-            'stats'                       => $stats,
-            'vulnerabilities_by_severity' => $bySeverity,
-            'vulnerabilities_by_status'   => $byStatus,
-            'recent_vulnerabilities'      => $recentVulnerabilities,
-            'recent_threats'              => $recentThreats,
+            'stats'                        => $stats,
+            'vulnerabilities_by_severity'  => $bySeverity,
+            'vulnerabilities_by_status'    => $byStatus,
+            'recent_vulnerabilities'       => $recentVulnerabilities,
+            'recent_threats'               => $recentThreats,
+            'unassigned_vulnerabilities'   => $unassignedVulnerabilitiesCount,
+            'critical_open_vulnerabilities' => $criticalAlerts,
         ]);
     }
 }
