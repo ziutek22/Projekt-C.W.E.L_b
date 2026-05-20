@@ -1,4 +1,5 @@
 import { Head, Link, useForm, usePage } from '@inertiajs/react';
+import { useTranslations } from '@/hooks/use-translations';
 
 interface Comment {
     id: number;
@@ -43,6 +44,7 @@ function CommentSection({
     commentableId: number;
 }) {
     const { auth } = usePage().props as any;
+    const { t } = useTranslations();
 
     const { data, setData, post, processing, reset, errors } = useForm({
         commentable_type: commentableType,
@@ -56,7 +58,7 @@ function CommentSection({
     }
 
     function deleteComment(id: number) {
-        if (!confirm('Delete this comment?')) return;
+        if (!confirm(t('comment.delete_confirm'))) return;
         import('@inertiajs/react').then(({ router }) => {
             router.delete(`/comments/${id}`);
         });
@@ -65,7 +67,7 @@ function CommentSection({
     return (
         <div className="flex flex-col gap-4">
             <h2 className="text-lg font-semibold">
-                Comments ({comments.length})
+                {t('comment.comments')} ({comments.length})
             </h2>
             <div className="flex flex-col gap-3">
                 {comments.map((c) => (
@@ -85,7 +87,7 @@ function CommentSection({
                                         onClick={() => deleteComment(c.id)}
                                         className="text-xs text-red-500 hover:text-red-700"
                                     >
-                                        Delete
+                                        {t('comment.delete')}
                                     </button>
                                 )}
                             </div>
@@ -94,7 +96,9 @@ function CommentSection({
                     </div>
                 ))}
                 {comments.length === 0 && (
-                    <p className="text-sm text-gray-500">No comments yet.</p>
+                    <p className="text-sm text-gray-500">
+                        {t('comment.no_comments_yet')}
+                    </p>
                 )}
             </div>
             <form onSubmit={submit} className="flex flex-col gap-2">
@@ -102,7 +106,7 @@ function CommentSection({
                     value={data.comment}
                     onChange={(e) => setData('comment', e.target.value)}
                     rows={3}
-                    placeholder="Add a comment..."
+                    placeholder={t('comment.placeholder')}
                     className="w-full rounded-lg border p-3 text-sm focus:ring-2 focus:outline-none"
                 />
                 {errors.comment && (
@@ -113,7 +117,7 @@ function CommentSection({
                     disabled={processing}
                     className="self-end rounded-lg bg-blue-600 px-4 py-2 text-sm text-white hover:bg-blue-700 disabled:opacity-50"
                 >
-                    {processing ? 'Sending...' : 'Add Comment'}
+                    {processing ? t('comment.sending') : t('comment.add_comment')}
                 </button>
             </form>
         </div>
@@ -121,6 +125,14 @@ function CommentSection({
 }
 
 export default function Show({ vulnerability }: Props) {
+    const { t } = useTranslations();
+
+    const translateSeverity = (severity: string) =>
+        t(`vulnerability.values.severity.${severity}`);
+
+    const translateStatus = (status: string) =>
+        t(`vulnerability.values.status.${status}`);
+
     return (
         <>
             <Head title={vulnerability.title} />
@@ -131,7 +143,7 @@ export default function Show({ vulnerability }: Props) {
                             href="/vulnerabilities"
                             className="text-sm text-blue-500 hover:underline"
                         >
-                            ← Back to Vulnerabilities
+                            {t('vulnerability.back_to_list')}
                         </Link>
                         <h1 className="mt-1 text-2xl font-bold">
                             {vulnerability.title}
@@ -146,13 +158,13 @@ export default function Show({ vulnerability }: Props) {
                         <span
                             className={`rounded-full px-2 py-1 text-xs font-medium capitalize ${severityColor[vulnerability.severity] ?? ''}`}
                         >
-                            {vulnerability.severity}
+                            {translateSeverity(vulnerability.severity)}
                         </span>
                         <Link
                             href={`/vulnerabilities/${vulnerability.id}/edit`}
                             className="rounded-lg border px-3 py-1 text-sm hover:bg-gray-50"
                         >
-                            Edit
+                            {t('vulnerability.buttons.edit')}
                         </Link>
                     </div>
                 </div>
@@ -160,9 +172,11 @@ export default function Show({ vulnerability }: Props) {
                 <div className="flex flex-col gap-3 rounded-xl border p-6">
                     <div className="grid grid-cols-2 gap-4 text-sm">
                         <div>
-                            <span className="text-gray-500">Status:</span>{' '}
+                            <span className="text-gray-500">
+                                {t('vulnerability.fields.status')}:
+                            </span>{' '}
                             <span className="capitalize">
-                                {vulnerability.status.replace('_', ' ')}
+                                {translateStatus(vulnerability.status)}
                             </span>
                         </div>
                         <div>
@@ -170,11 +184,15 @@ export default function Show({ vulnerability }: Props) {
                             {vulnerability.cvss_score ?? '—'}
                         </div>
                         <div>
-                            <span className="text-gray-500">Assigned to:</span>{' '}
+                            <span className="text-gray-500">
+                                {t('vulnerability.fields.assigned_to')}:
+                            </span>{' '}
                             {vulnerability.assigned_user?.name ?? '—'}
                         </div>
                         <div>
-                            <span className="text-gray-500">Created:</span>{' '}
+                            <span className="text-gray-500">
+                                {t('vulnerability.fields.created_at')}:
+                            </span>{' '}
                             {new Date(
                                 vulnerability.created_at,
                             ).toLocaleDateString()}
@@ -189,7 +207,9 @@ export default function Show({ vulnerability }: Props) {
 
                 {vulnerability.threats.length > 0 && (
                     <div className="rounded-xl border p-6">
-                        <h2 className="mb-3 font-semibold">Related Threats</h2>
+                        <h2 className="mb-3 font-semibold">
+                            {t('vulnerability.related_threats')}
+                        </h2>
                         <div className="flex flex-wrap gap-2">
                             {vulnerability.threats.map((t) => (
                                 <Link
@@ -206,7 +226,9 @@ export default function Show({ vulnerability }: Props) {
 
                 {vulnerability.assets.length > 0 && (
                     <div className="rounded-xl border p-6">
-                        <h2 className="mb-3 font-semibold">Affected Assets</h2>
+                        <h2 className="mb-3 font-semibold">
+                            {t('vulnerability.affected_assets')}
+                        </h2>
                         <div className="flex flex-wrap gap-2">
                             {vulnerability.assets.map((a) => (
                                 <Link
