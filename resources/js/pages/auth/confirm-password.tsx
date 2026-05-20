@@ -4,27 +4,32 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
+import { useTranslations } from '@/hooks/use-translations';
 import AuthLayout from '@/layouts/auth-layout';
 import { store } from '@/routes/password/confirm';
 
 export default function ConfirmPassword() {
+    const { t } = useTranslations();
+
     return (
         <AuthLayout
-            title="Confirm your password"
-            description="This is a secure area of the application. Please confirm your password before continuing."
+            title={t('auth.confirm_password.title')}
+            description={t('auth.confirm_password.description')}
         >
-            <Head title="Confirm password" />
+            <Head title={t('auth.confirm_password.submit')} />
 
             <Form {...store.form()} resetOnSuccess={['password']}>
                 {({ processing, errors }) => (
                     <div className="space-y-6">
                         <div className="grid gap-2">
-                            <Label htmlFor="password">Password</Label>
+                            <Label htmlFor="password">
+                                {t('auth.confirm_password.password_label')}
+                            </Label>
                             <Input
                                 id="password"
                                 type="password"
                                 name="password"
-                                placeholder="Password"
+                                placeholder={t('auth.confirm_password.password_label')}
                                 autoComplete="current-password"
                                 autoFocus
                             />
@@ -39,7 +44,7 @@ export default function ConfirmPassword() {
                                 data-test="confirm-password-button"
                             >
                                 {processing && <Spinner />}
-                                Confirm password
+                                {t('auth.confirm_password.submit')}
                             </Button>
                         </div>
                     </div>

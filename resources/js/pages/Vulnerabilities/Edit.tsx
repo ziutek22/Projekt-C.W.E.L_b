@@ -1,4 +1,5 @@
 import { Head, Link, useForm } from '@inertiajs/react';
+import { useTranslations } from '@/hooks/use-translations';
 
 interface User {
     id: number;
@@ -24,6 +25,7 @@ interface Props {
 }
 
 export default function Edit({ vulnerability, users }: Props) {
+    const { t } = useTranslations();
     const { data, setData, put, processing, errors } = useForm({
         cve_id: vulnerability.cve_id ?? '',
         title: vulnerability.title,
@@ -43,22 +45,22 @@ export default function Edit({ vulnerability, users }: Props) {
 
     return (
         <>
-            <Head title="Edit Vulnerability" />
+            <Head title={t('vulnerability.edit')} />
             <div className="max-w-2xl p-6">
                 <Link
                     href={`/vulnerabilities/${vulnerability.id}`}
                     className="text-sm text-blue-500 hover:underline"
                 >
-                    ← Back
+                    {t('vulnerability.buttons.back')}
                 </Link>
                 <h1 className="mt-2 mb-6 text-2xl font-bold">
-                    Edit Vulnerability
+                    {t('vulnerability.edit')}
                 </h1>
 
                 <form onSubmit={submit} className="flex flex-col gap-4">
                     <div>
                         <label className="mb-1 block text-sm font-medium">
-                            CVE ID
+                            {t('vulnerability.cve_id')}
                         </label>
                         <input
                             type="text"
@@ -76,7 +78,7 @@ export default function Edit({ vulnerability, users }: Props) {
 
                     <div>
                         <label className="mb-1 block text-sm font-medium">
-                            Title *
+                            {t('vulnerability.fields.title')} *
                         </label>
                         <input
                             type="text"
@@ -93,7 +95,7 @@ export default function Edit({ vulnerability, users }: Props) {
 
                     <div>
                         <label className="mb-1 block text-sm font-medium">
-                            Description
+                            {t('vulnerability.fields.description')}
                         </label>
                         <textarea
                             value={data.description}
@@ -113,7 +115,7 @@ export default function Edit({ vulnerability, users }: Props) {
                     <div className="grid grid-cols-2 gap-4">
                         <div>
                             <label className="mb-1 block text-sm font-medium">
-                                Severity *
+                                {t('vulnerability.fields.severity')} *
                             </label>
                             <select
                                 value={data.severity}
@@ -122,10 +124,20 @@ export default function Edit({ vulnerability, users }: Props) {
                                 }
                                 className="w-full rounded-lg border p-2 text-sm focus:ring-2 focus:outline-none"
                             >
-                                <option value="low">Low</option>
-                                <option value="medium">Medium</option>
-                                <option value="high">High</option>
-                                <option value="critical">Critical</option>
+                                <option value="low">
+                                    {t('vulnerability.values.severity.low')}
+                                </option>
+                                <option value="medium">
+                                    {t('vulnerability.values.severity.medium')}
+                                </option>
+                                <option value="high">
+                                    {t('vulnerability.values.severity.high')}
+                                </option>
+                                <option value="critical">
+                                    {t(
+                                        'vulnerability.values.severity.critical',
+                                    )}
+                                </option>
                             </select>
                             {errors.severity && (
                                 <p className="mt-1 text-xs text-red-500">
@@ -136,7 +148,7 @@ export default function Edit({ vulnerability, users }: Props) {
 
                         <div>
                             <label className="mb-1 block text-sm font-medium">
-                                CVSS Score
+                                {t('vulnerability.cvss_score')}
                             </label>
                             <input
                                 type="number"
@@ -160,7 +172,7 @@ export default function Edit({ vulnerability, users }: Props) {
                     <div className="grid grid-cols-2 gap-4">
                         <div>
                             <label className="mb-1 block text-sm font-medium">
-                                Status *
+                                {t('vulnerability.fields.status')} *
                             </label>
                             <select
                                 value={data.status}
@@ -169,11 +181,21 @@ export default function Edit({ vulnerability, users }: Props) {
                                 }
                                 className="w-full rounded-lg border p-2 text-sm focus:ring-2 focus:outline-none"
                             >
-                                <option value="open">Open</option>
-                                <option value="in_progress">In Progress</option>
-                                <option value="resolved">Resolved</option>
+                                <option value="open">
+                                    {t('vulnerability.values.status.open')}
+                                </option>
+                                <option value="in_progress">
+                                    {t(
+                                        'vulnerability.values.status.in_progress',
+                                    )}
+                                </option>
+                                <option value="resolved">
+                                    {t('vulnerability.values.status.resolved')}
+                                </option>
                                 <option value="false_positive">
-                                    False Positive
+                                    {t(
+                                        'vulnerability.values.status.false_positive',
+                                    )}
                                 </option>
                             </select>
                             {errors.status && (
@@ -185,7 +207,7 @@ export default function Edit({ vulnerability, users }: Props) {
 
                         <div>
                             <label className="mb-1 block text-sm font-medium">
-                                Assigned To
+                                {t('vulnerability.fields.assigned_to')}
                             </label>
                             <select
                                 value={data.assigned_to}
@@ -194,7 +216,9 @@ export default function Edit({ vulnerability, users }: Props) {
                                 }
                                 className="w-full rounded-lg border p-2 text-sm focus:ring-2 focus:outline-none"
                             >
-                                <option value="">— Unassigned —</option>
+                                <option value="">
+                                    {t('vulnerability.fields.unassigned')}
+                                </option>
                                 {users.map((u) => (
                                     <option key={u.id} value={u.id}>
                                         {u.name}
@@ -212,7 +236,7 @@ export default function Edit({ vulnerability, users }: Props) {
                     <div className="grid grid-cols-2 gap-4">
                         <div>
                             <label className="mb-1 block text-sm font-medium">
-                                Source
+                                {t('vulnerability.fields.source')}
                             </label>
                             <input
                                 type="text"
@@ -231,7 +255,7 @@ export default function Edit({ vulnerability, users }: Props) {
 
                         <div>
                             <label className="mb-1 block text-sm font-medium">
-                                Discovered At
+                                {t('vulnerability.discovered_at')}
                             </label>
                             <input
                                 type="date"
@@ -255,13 +279,13 @@ export default function Edit({ vulnerability, users }: Props) {
                             disabled={processing}
                             className="rounded-lg bg-blue-600 px-6 py-2 text-sm text-white hover:bg-blue-700 disabled:opacity-50"
                         >
-                            {processing ? 'Saving...' : 'Update'}
+                            {processing ? t('vulnerability.buttons.saving') : t('vulnerability.buttons.save')}
                         </button>
                         <Link
                             href={`/vulnerabilities/${vulnerability.id}`}
                             className="rounded-lg border px-6 py-2 text-sm hover:bg-gray-50"
                         >
-                            Cancel
+                            {t('vulnerability.buttons.cancel')}
                         </Link>
                     </div>
                 </form>

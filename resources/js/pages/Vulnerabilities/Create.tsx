@@ -1,5 +1,6 @@
 import { Head, Link, useForm } from '@inertiajs/react';
 import { useState } from 'react';
+import { useTranslations } from '@/hooks/use-translations';
 
 interface User {
     id: number;
@@ -11,6 +12,7 @@ interface Props {
 }
 
 export default function Create({ users }: Props) {
+    const { t } = useTranslations();
     const [importing, setImporting] = useState(false);
     const [importError, setImportError] = useState<string | null>(null);
 
@@ -28,7 +30,7 @@ export default function Create({ users }: Props) {
 
     async function importFromNvd() {
         if (!data.cve_id) {
-            setImportError('Enter CVE ID first');
+            setImportError(t('vulnerability.enter_cve_first'));
             return;
         }
         setImporting(true);
@@ -40,14 +42,19 @@ export default function Create({ users }: Props) {
                 credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'X-CSRF-TOKEN': (document.querySelector('meta[name="csrf-token"]') as HTMLMetaElement)?.content ?? '',
+                    Accept: 'application/json',
+                    'X-CSRF-TOKEN':
+                        (
+                            document.querySelector(
+                                'meta[name="csrf-token"]',
+                            ) as HTMLMetaElement
+                        )?.content ?? '',
                 },
                 body: JSON.stringify({ cve_id: data.cve_id }),
-            })
+            });
 
             if (!response.ok) {
-                setImportError('CVE not found in NVD');
+                setImportError(t('vulnerability.cve_not_found'));
                 return;
             }
 
@@ -61,7 +68,7 @@ export default function Create({ users }: Props) {
                 source: nvd.source ?? prev.source,
             }));
         } catch {
-            setImportError('Connection error');
+            setImportError(t('vulnerability.connection_error'));
         } finally {
             setImporting(false);
         }
@@ -74,22 +81,22 @@ export default function Create({ users }: Props) {
 
     return (
         <>
-            <Head title="New Vulnerability" />
+            <Head title={t('vulnerability.new')} />
             <div className="max-w-2xl p-6">
                 <Link
                     href="/vulnerabilities"
                     className="text-sm text-blue-500 hover:underline"
                 >
-                    ← Back to Vulnerabilities
+                    {t('vulnerability.back_to_list')}
                 </Link>
                 <h1 className="mt-2 mb-6 text-2xl font-bold">
-                    New Vulnerability
+                    {t('vulnerability.new')}
                 </h1>
 
                 <form onSubmit={submit} className="flex flex-col gap-4">
                     <div>
                         <label className="mb-1 block text-sm font-medium">
-                            CVE ID
+                            {t('vulnerability.cve_id')}
                         </label>
                         <div className="flex gap-2">
                             <input
@@ -107,7 +114,9 @@ export default function Create({ users }: Props) {
                                 disabled={importing}
                                 className="rounded-lg bg-green-600 px-3 py-2 text-sm whitespace-nowrap text-white hover:bg-green-700 disabled:opacity-50"
                             >
-                                {importing ? 'Importing...' : 'Import from NVD'}
+                                {importing
+                                    ? t('vulnerability.importing')
+                                    : t('vulnerability.import_from_nvd')}
                             </button>
                         </div>
                         {importError && (
@@ -124,7 +133,7 @@ export default function Create({ users }: Props) {
 
                     <div>
                         <label className="mb-1 block text-sm font-medium">
-                            Title *
+                            {t('vulnerability.fields.title')} *
                         </label>
                         <input
                             type="text"
@@ -141,7 +150,7 @@ export default function Create({ users }: Props) {
 
                     <div>
                         <label className="mb-1 block text-sm font-medium">
-                            Description
+                            {t('vulnerability.fields.description')}
                         </label>
                         <textarea
                             value={data.description}
@@ -161,7 +170,7 @@ export default function Create({ users }: Props) {
                     <div className="grid grid-cols-2 gap-4">
                         <div>
                             <label className="mb-1 block text-sm font-medium">
-                                Severity *
+                                {t('vulnerability.fields.severity')} *
                             </label>
                             <select
                                 value={data.severity}
@@ -170,10 +179,20 @@ export default function Create({ users }: Props) {
                                 }
                                 className="w-full rounded-lg border p-2 text-sm focus:ring-2 focus:outline-none"
                             >
-                                <option value="low">Low</option>
-                                <option value="medium">Medium</option>
-                                <option value="high">High</option>
-                                <option value="critical">Critical</option>
+                                <option value="low">
+                                    {t('vulnerability.values.severity.low')}
+                                </option>
+                                <option value="medium">
+                                    {t('vulnerability.values.severity.medium')}
+                                </option>
+                                <option value="high">
+                                    {t('vulnerability.values.severity.high')}
+                                </option>
+                                <option value="critical">
+                                    {t(
+                                        'vulnerability.values.severity.critical',
+                                    )}
+                                </option>
                             </select>
                             {errors.severity && (
                                 <p className="mt-1 text-xs text-red-500">
@@ -184,7 +203,7 @@ export default function Create({ users }: Props) {
 
                         <div>
                             <label className="mb-1 block text-sm font-medium">
-                                CVSS Score
+                                {t('vulnerability.cvss_score')}
                             </label>
                             <input
                                 type="number"
@@ -208,7 +227,7 @@ export default function Create({ users }: Props) {
                     <div className="grid grid-cols-2 gap-4">
                         <div>
                             <label className="mb-1 block text-sm font-medium">
-                                Status *
+                                {t('vulnerability.fields.status')} *
                             </label>
                             <select
                                 value={data.status}
@@ -217,11 +236,21 @@ export default function Create({ users }: Props) {
                                 }
                                 className="w-full rounded-lg border p-2 text-sm focus:ring-2 focus:outline-none"
                             >
-                                <option value="open">Open</option>
-                                <option value="in_progress">In Progress</option>
-                                <option value="resolved">Resolved</option>
+                                <option value="open">
+                                    {t('vulnerability.values.status.open')}
+                                </option>
+                                <option value="in_progress">
+                                    {t(
+                                        'vulnerability.values.status.in_progress',
+                                    )}
+                                </option>
+                                <option value="resolved">
+                                    {t('vulnerability.values.status.resolved')}
+                                </option>
                                 <option value="false_positive">
-                                    False Positive
+                                    {t(
+                                        'vulnerability.values.status.false_positive',
+                                    )}
                                 </option>
                             </select>
                             {errors.status && (
@@ -233,7 +262,7 @@ export default function Create({ users }: Props) {
 
                         <div>
                             <label className="mb-1 block text-sm font-medium">
-                                Assigned To
+                                {t('vulnerability.fields.assigned_to')}
                             </label>
                             <select
                                 value={data.assigned_to}
@@ -242,7 +271,9 @@ export default function Create({ users }: Props) {
                                 }
                                 className="w-full rounded-lg border p-2 text-sm focus:ring-2 focus:outline-none"
                             >
-                                <option value="">— Unassigned —</option>
+                                <option value="">
+                                    {t('vulnerability.fields.unassigned')}
+                                </option>
                                 {users.map((u) => (
                                     <option key={u.id} value={u.id}>
                                         {u.name}
@@ -260,7 +291,7 @@ export default function Create({ users }: Props) {
                     <div className="grid grid-cols-2 gap-4">
                         <div>
                             <label className="mb-1 block text-sm font-medium">
-                                Source
+                                {t('vulnerability.fields.source')}
                             </label>
                             <input
                                 type="text"
@@ -279,7 +310,7 @@ export default function Create({ users }: Props) {
 
                         <div>
                             <label className="mb-1 block text-sm font-medium">
-                                Discovered At
+                                {t('vulnerability.discovered_at')}
                             </label>
                             <input
                                 type="date"
@@ -303,13 +334,13 @@ export default function Create({ users }: Props) {
                             disabled={processing}
                             className="rounded-lg bg-blue-600 px-6 py-2 text-sm text-white hover:bg-blue-700 disabled:opacity-50"
                         >
-                            {processing ? 'Saving...' : 'Save'}
+                            {processing ? t('vulnerability.buttons.saving') : t('vulnerability.buttons.save')}
                         </button>
                         <Link
                             href="/vulnerabilities"
                             className="rounded-lg border px-6 py-2 text-sm hover:bg-gray-50"
                         >
-                            Cancel
+                            {t('vulnerability.buttons.cancel')}
                         </Link>
                     </div>
                 </form>
